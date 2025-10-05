@@ -1,0 +1,464 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forces and Newton’s Laws</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 1; transform: scale(1); text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);}
+      50% { opacity: 0.8; transform: scale(1.02); text-shadow: 0 0 30px rgba(16, 185, 129, 0.8);}
+    }
+    @keyframes matrix-line {
+      0% { opacity: 0; transform: translateY(-100vh) rotate(45deg);}
+      50% { opacity: 0.6;}
+      100% { opacity: 0; transform: translateY(100vh) rotate(45deg);}
+    }
+    @keyframes fade-in-up {
+      0% { opacity: 0; transform: translateY(30px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes slide-down {
+      0% { opacity: 0; transform: translateY(-30px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes typewriter {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      0%, 50% { border-color: transparent; }
+      51%, 100% { border-color: #10b981; }
+    }
+    .pulse-headline { animation: pulse-glow 1.6s ease-in-out infinite; }
+    .animate-sequence-1 { animation: fade-in-up 0.8s ease-in-out 0.2s both; }
+    .animate-sequence-2 { animation: fade-in-up 0.8s ease-in-out 0.4s both; }
+    .animate-sequence-3 { animation: fade-in-up 0.8s ease-in-out 0.6s both; }
+    .slide-down-enter { animation: slide-down 0.8s ease-out forwards; }
+    .matrix-line { animation: matrix-line 3s linear infinite; }
+    .matrix-line:nth-child(1) { animation-delay: 0s; left: 10%; }
+    .matrix-line:nth-child(2) { animation-delay: 0.5s; left: 25%; }
+    .matrix-line:nth-child(3) { animation-delay: 1s; left: 40%; }
+    .matrix-line:nth-child(4) { animation-delay: 1.5s; left: 55%; }
+    .matrix-line:nth-child(5) { animation-delay: 2s; left: 70%; }
+    .matrix-line:nth-child(6) { animation-delay: 2.5s; left: 85%; }
+    .neon-button {
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), inset 0 0 20px rgba(16, 185, 129, 0.1);
+      transition: all 0.3s ease;
+    }
+    .neon-button:hover {
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.6), inset 0 0 30px rgba(16, 185, 129, 0.2);
+      transform: translateY(-2px);
+    }
+    .typewriter {
+      overflow: hidden;
+      border-right: 2px solid #10b981;
+      white-space: nowrap;
+      animation: typewriter 2s steps(40, end) 1.2s both, blink 1s infinite;
+      width: 0;
+    }
+    .nav-link { position: relative; transition: all 0.3s ease; }
+    .nav-link:hover { color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #10b981, #06d6a0);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .feature-card {
+      background: linear-gradient(135deg, rgba(16,185,129,0.05) 0%, rgba(0,0,0,0.4) 100%);
+      border: 1px solid rgba(16,185,129,0.2);
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+    .feature-card:hover {
+      border-color: rgba(16,185,129,0.6);
+      background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(6,214,160,0.05) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(16,185,129,0.15);
+    }
+    .glass-header { background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(16,185,129,0.2); }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=IBM+Plex+Serif:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=IBM+Plex+Serif:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+<link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style></head>
+<body class="bg-black text-white overflow-x-hidden font-sans">
+  <!-- Matrix Background -->
+  <div class="fixed inset-0 z-0">
+    <div class="matrix-line absolute w-0.5 h-20 bg-gradient-to-b from-transparent via-emerald-400 to-transparent opacity-40"></div>
+    <div class="matrix-line absolute w-0.5 h-20 bg-gradient-to-b from-transparent via-emerald-400 to-transparent opacity-40"></div>
+    <div class="matrix-line absolute w-0.5 h-20 bg-gradient-to-b from-transparent via-emerald-400 to-transparent opacity-40"></div>
+    <div class="matrix-line absolute w-0.5 h-20 bg-gradient-to-b from-transparent via-emerald-400 to-transparent opacity-40"></div>
+    <div class="matrix-line absolute w-0.5 h-20 bg-gradient-to-b from-transparent via-emerald-400 to-transparent opacity-40"></div>
+    <div class="matrix-line absolute w-0.5 h-20 bg-gradient-to-b from-transparent via-emerald-400 to-transparent opacity-40"></div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-header">
+    <nav class="max-w-7xl mr-auto ml-auto pt-4 pr-6 pb-4 pl-6" data-element-locator="html &gt; body:nth-of-type(1) &gt; header:nth-of-type(1) &gt; nav:nth-of-type(1)">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 bg-emerald-400 rounded flex items-center justify-center">
+            <span class="text-black font-semibold text-sm">FN</span>
+          </div>
+          <span class="text-emerald-400 font-semibold text-xl tracking-tight">Forces</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="#introduction" class="nav-link hover:text-emerald-400 flex items-center gap-2 text-gray-300" data-element-locator="html &gt; body:nth-of-type(1) &gt; header:nth-of-type(1) &gt; nav:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; a:nth-of-type(1)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="book-open" class="lucide lucide-book-open w-4 h-4"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg> Introduction
+          </a>
+          <a href="#features" class="nav-link hover:text-emerald-400 flex items-center gap-2 text-gray-300" data-element-locator="html &gt; body:nth-of-type(1) &gt; header:nth-of-type(1) &gt; nav:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; a:nth-of-type(2)">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="boxes" class="lucide lucide-boxes w-4 h-4"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"></path><path d="m7 16.5-4.74-2.85"></path><path d="m7 16.5 5-3"></path><path d="M7 16.5v5.17"></path><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"></path><path d="m17 16.5-5-3"></path><path d="m17 16.5 4.74-2.85"></path><path d="M17 16.5v5.17"></path><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"></path><path d="M12 8 7.26 5.15"></path><path d="m12 8 4.74-2.85"></path><path d="M12 13.5V8"></path></svg> Types of Forces
+</a>
+          <a href="#newtons-laws" class="nav-link text-gray-300 hover:text-emerald-400 flex items-center gap-2" data-element-locator="html &gt; body:nth-of-type(1) &gt; header:nth-of-type(1) &gt; nav:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; a:nth-of-type(3)">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="axis-3d" class="lucide lucide-axis-3d w-4 h-4"><path d="M13.5 10.5 15 9"></path><path d="M4 4v15a1 1 0 0 0 1 1h15"></path><path d="M4.293 19.707 6 18"></path><path d="m9 15 1.5-1.5"></path></svg> Newton’s Laws
+</a>
+          <a href="#fbd" class="nav-link text-gray-300 hover:text-emerald-400 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="square" class="lucide lucide-square w-4 h-4"><rect width="18" height="18" x="3" y="3" rx="2"></rect></svg> Free Body Diagrams
+          </a>
+          <a href="#practice" class="nav-link hover:text-emerald-400 flex items-center gap-2 text-gray-300" data-element-locator="html &gt; body:nth-of-type(1) &gt; header:nth-of-type(1) &gt; nav:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; a:nth-of-type(5)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="play-square" class="lucide lucide-play-square w-4 h-4"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"></path></svg> Practice Problems
+          </a>
+        </div>
+        <div class="md:hidden">
+          <button class="text-emerald-400" aria-label="Open menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="z-10 min-h-screen flex pt-24 pr-6 pl-6 relative items-center justify-center" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(1)" id="hero">
+    <div class="text-center max-w-4xl mx-auto">
+      <h1 class="pulse-headline md:text-6xl lg:text-7xl bg-clip-text leading-tight text-5xl font-semibold text-transparent tracking-tight bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 mb-6" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(1) &gt; div:nth-of-type(1) &gt; h1:nth-of-type(1)" style="">Forces and Newton’s Laws</h1>
+      <div class="animate-sequence-2">
+        <button class="neon-button hover:bg-emerald-400 md:text-lg md:px-12 md:py-4 text-base font-semibold text-black bg-emerald-500 border-emerald-400 border-2 rounded-lg pt-3 pr-8 pb-3 pl-8" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; button:nth-of-type(1)" id="exploreBtn">
+          Explore Types of Forces
+        </button>
+      </div>
+      <div class="animate-sequence-3 mt-10 flex items-center justify-center text-emerald-400 text-sm font-mono opacity-70">
+        <span>&gt;</span><span class="typewriter ml-1">Ready to explore forces and motion...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Introduction -->
+  <section id="introduction" class="relative z-10 py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-3 mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="book-open" class="lucide lucide-book-open w-5 h-5 text-emerald-400"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-emerald-400">Introduction to Forces</h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <p class="leading-relaxed text-gray-200" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; p:nth-of-type(1)">A force is a push or pull that acts on an object and requires a specific agent or cause to exert it. A force is a vector quantity, which means it has both magnitude and direction. The two types of forces are contact forces and long range forces. Contact forces are forces that need physical touch between objects at a specific point while long-range forces are forces that act on an object without physical contact. Friction, tension, and normal force are contact forces. Weight, magnetic, and electrostatic are examples of long-range forces.</p>
+        </div>
+        
+      </div>
+      <div class="mt-8 border-t border-emerald-500/10"></div>
+    </div>
+  </section>
+
+  <!-- Types of Forces -->
+  <section class="z-10 pt-16 pr-6 pb-16 pl-6 relative" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3)" id="features">
+  <div class="max-w-6xl mx-auto" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1)">
+    <div class="flex items-center gap-3 mb-10" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="boxes" class="lucide lucide-boxes w-5 h-5 text-emerald-400"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"></path><path d="m7 16.5-4.74-2.85"></path><path d="m7 16.5 5-3"></path><path d="M7 16.5v5.17"></path><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"></path><path d="m17 16.5-5-3"></path><path d="m17 16.5 4.74-2.85"></path><path d="M17 16.5v5.17"></path><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"></path><path d="M12 8 7.26 5.15"></path><path d="m12 8 4.74-2.85"></path><path d="M12 13.5V8"></path></svg>
+      <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-emerald-400">Types of Forces</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2)">
+      <!-- Weight Force -->
+      <div class="feature-card rounded-lg pt-6 pr-6 pb-6 pl-6 backdrop-blur-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1)">
+        <h3 class="text-xl font-semibold text-emerald-300 mb-3" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; h3:nth-of-type(1)">
+          Weight Force (F_w)</h3>
+        <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; p:nth-of-type(1)" style="">Weight force is caused by gravity. It always pulls straight down, no matter what the object is doing.
+          The symbol for weight is F_w or F_mg, and the agent is the Earth pulling on the object. Example: When you’re standing
+          still or jumping, your weight is always pulling you toward the ground. Even when you're flying in a plane or
+          riding a roller coaster, the weight force still pulls downward as it’s constant and always present because gravity
+          never stops acting.</p>
+        <div class="rounded-md overflow-hidden border border-emerald-500/20">
+          <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/06b4f876-c2b2-422d-97f3-2a3459ee0f2e_1600w.png" alt="Diagram showing weight acting downward (mg)" class="bg-black/50 w-full h-34 object-cover" data-element-src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/06b4f876-c2b2-422d-97f3-2a3459ee0f2e_1600w.png" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; img:nth-of-type(1)">
+        </div>
+      </div>
+
+      <!-- Spring Force -->
+      <div class="feature-card rounded-lg pt-6 pr-6 pb-6 pl-6 backdrop-blur-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2)">
+        <h3 class="text-xl font-semibold text-emerald-300 mb-3" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; h3:nth-of-type(1)">
+          Spring Force (F_s)</h3>
+        <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; p:nth-of-type(1)">
+          Spring force happens when a material tries to return to its original shape after being stretched or
+          compressed. Springs pull when stretched and push when squeezed. The force always acts along the direction of
+          the spring. Example: When you jump on a trampoline, the springs stretch and then push you back up. That upward
+          force is the spring force trying to return the trampoline to its resting shape.
+        </p>
+        <div class="rounded-md overflow-hidden border border-emerald-500/20">
+          <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/db38f408-4ce8-41fa-90e3-fa568e1fe5a4_1600w.png" alt="Mass-spring diagram" class="bg-black w-full h-39 object-contain" data-element-src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/db38f408-4ce8-41fa-90e3-fa568e1fe5a4_1600w.png" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; img:nth-of-type(1)">
+        </div>
+      </div>
+
+      <!-- Normal Force -->
+      <div class="feature-card rounded-lg pt-6 pr-6 pb-6 pl-6 backdrop-blur-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3)">
+        <h3 class="text-xl font-semibold text-emerald-300 mb-3">Normal Force (N⃗)</h3>
+        <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; p:nth-of-type(1)">Normal force is the force a surface applies to support an object resting on it. It acts perpendicular or
+          “normal” to the surface.
+
+          Example: When you sit in a chair, the chair pushes up on you to support your weight.
+          That upward push is the normal force. Without it, you would fall through. If you place a book on a tilted
+          desk, the normal force points perpendicular to the surface and not straight up.</p>
+        <div class="rounded-md overflow-hidden border border-emerald-500/20">
+          <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/673fb6a7-6571-4405-b8c8-c9fc97689487_1600w.png" alt="Normal force perpendicular to plane" class="bg-black/50 w-full h-37 object-cover" data-element-src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/673fb6a7-6571-4405-b8c8-c9fc97689487_1600w.png" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; img:nth-of-type(1)">
+        </div>
+      </div>
+
+      <!-- Tension Force -->
+      <div class="feature-card p-6 rounded-lg backdrop-blur-sm">
+        <h3 class="text-xl font-semibold text-emerald-300 mb-3" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; h3:nth-of-type(1)">
+          Tension Force (F_t)</h3>
+        <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; p:nth-of-type(1)">Tension force is the pulling force from something like a rope, cable, or string. Tension is always directed along the line of the rope or string. Example: When someone is holding the end of a rope and
+          pulling a sled, the rope pulls the sled forward. The rope becomes tight and transmits a tension force from the
+          person’s hand to the sled.</p>
+        <div class="rounded-md overflow-hidden border border-emerald-500/20">
+          <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/61269d75-a27d-491c-8678-e23df821489f_800w.png" alt="Tension in a rope (tug of war)" class="bg-black/50 w-full h-36 object-cover scale-90" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; img:nth-of-type(1)" data-element-src="https://images.unsplash.com/photo-1635151227785-429f420c6b9d?w=1080&amp;q=80">
+        </div>
+      </div>
+
+      <!-- Friction Force -->
+      <div class="feature-card p-6 rounded-lg backdrop-blur-sm">
+        <h3 class="text-xl font-semibold text-emerald-300 mb-3" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(5) &gt; h3:nth-of-type(1)">
+          Friction Force (F_k for kinetic, F_s for static)</h3>
+        <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(5) &gt; p:nth-of-type(1)">Friction is a force that resists sliding between two surfaces. It opposes the motion of one surface against another that its in constant with. Static friction keeps things from starting to  move, and kinetic friction acts while things are already sliding. You only need to worry about friction if the problem mentions it. If the surface is rough or gives a friction number, you must include friction.  Example: When you try to push a heavy couch and it won’t move right away, that’s static friction resisting the motion. Once it starts sliding, kinetic friction keeps pushing back against your motion and makes it harder to keep moving.</p>
+        <div class="rounded-md overflow-hidden border border-emerald-500/20">
+          <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/31052ff1-a3db-41bf-b5cb-e9bf7c10573c_800w.png" alt="Block on surface with friction" class="bg-black w-full h-36 object-contain" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(5) &gt; div:nth-of-type(1) &gt; img:nth-of-type(1)" data-element-src="https://images.unsplash.com/photo-1621619856624-42fd193a0661?w=1080&amp;q=80">
+        </div>
+      </div>
+
+      <!-- Drag Force -->
+      <div class="feature-card rounded-lg pt-6 pr-6 pb-6 pl-6 backdrop-blur-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(6)">
+        <h3 class="text-xl font-semibold text-emerald-300 mb-3" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(6) &gt; h3:nth-of-type(1)">Drag Force (F_d)</h3>
+        <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(6) &gt; p:nth-of-type(1)">Drag force is the resistance an object encounters when moving through fluids like water and air. It always acts in the opposite direction of the object's movement. When solving a force problem, assume there is no air resistance unless it is stated. Example: When a car speeds up, the air pushes back
+          against it and slows it down. That resistance is drag.</p>
+        <div class="rounded-md overflow-hidden border border-emerald-500/20">
+          <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/03db95b9-b0e6-4468-9c86-2b4f73178d53_800w.jpg" alt="Drag force diagram" class="bg-black w-full h-36 object-contain scale-105" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(6) &gt; div:nth-of-type(1) &gt; img:nth-of-type(1)" data-element-src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/03db95b9-b0e6-4468-9c86-2b4f73178d53_800w.jpg">
+        </div>
+      </div>
+
+      <!-- Thrust Force -->
+      <div class="feature-card p-6 rounded-lg backdrop-blur-sm">
+        <h3 class="text-xl font-semibold text-emerald-300 mb-3" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(7) &gt; h3:nth-of-type(1)">
+          Thrust Force (F_thrust)</h3>
+        <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(7) &gt; p:nth-of-type(1)">Thrust is a force that propels an object forward by accelerating or generating a mass in the opposite direction.
+          It’s often created by engines or propellers. Example: When a rocket launches, it pushes gas downward and the
+          reaction force pushes the rocket upward. Airplanes also use thrust from their engines to move forward and
+          overcome air resistance.</p>
+        <div class="rounded-md overflow-hidden border border-emerald-500/20">
+          <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/2778cadd-a3d6-4449-890e-24dd47b675a2_original.gif" alt="Rocket launch illustrating thrust" class="bg-black/50 w-full h-34 object-cover scale-75" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(7) &gt; div:nth-of-type(1) &gt; img:nth-of-type(1)" data-element-src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/2778cadd-a3d6-4449-890e-24dd47b675a2_original.gif">
+        </div>
+      </div>
+
+      <!-- Magnetic Force -->
+      <div class="feature-card rounded-lg pt-6 pr-6 pb-6 pl-6 backdrop-blur-sm scale-95" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(8)">
+        <h3 class="text-xl font-semibold text-emerald-300 mb-3" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(8) &gt; h3:nth-of-type(1)">
+          Magnetic Force (F_m)</h3>
+        <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(8) &gt; p:nth-of-type(1)">
+          Magnetic force is a force that can attract or repel certain materials, like iron, and acts without contact. It
+          also affects moving electric charges. Example: When you bring a magnet near paperclips, they snap toward it
+          even if there’s a small gap in between. That pulling force is magnetic force acting across empty space.
+        </p>
+        <div class="rounded-md overflow-hidden border border-emerald-500/20">
+          
+        </div>
+      </div>
+
+      <!-- Electric Force -->
+      <div class="feature-card rounded-lg pt-6 pr-6 pb-6 pl-6 backdrop-blur-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(9)">
+        <h3 class="text-xl font-semibold text-emerald-300 mb-3" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(9) &gt; h3:nth-of-type(1)">
+          Electric Force (F_e)</h3>
+        <p class="text-gray-200 leading-relaxed mb-4">
+          Electric force is a push or pull between charged objects. Opposite charges attract, and like charges repel. It
+          works without the objects needing to touch. Example: If you rub a balloon on your hair, it builds up electric
+          charge and sticks to the wall. The force between the charged balloon and the neutral wall pulls the balloon
+          in, even without contact.
+        </p>
+        <div class="rounded-md overflow-hidden border border-emerald-500/20">
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-emerald-500/10"></div>
+  </div>
+</section>
+
+  <!-- Newton's Laws -->
+  <section class="z-10 pt-16 pr-6 pb-16 pl-6 relative" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4)" id="newtons-laws">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-3 mb-10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="axis-3d" class="lucide lucide-axis-3d w-5 h-5 text-emerald-400"><path d="M13.5 10.5 15 9"></path><path d="M4 4v15a1 1 0 0 0 1 1h15"></path><path d="M4.293 19.707 6 18"></path><path d="m9 15 1.5-1.5"></path></svg>
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-emerald-400">Newton’s Laws</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 gap-x-8 gap-y-8" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2)">
+        <!-- First Law -->
+        <div class="feature-card p-6 rounded-lg backdrop-blur-sm">
+          <h3 class="text-xl font-semibold text-emerald-300 mb-3">Newton’s First Law</h3>
+          <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; p:nth-of-type(1)">An object at rest stays at rest, and an object in motion stays in motion until an unbalanced force acts on it. An unbalanced force is a force on the object that is not zero and causes the object to change its motion. Example: A soccer ball will sit still on the field until someone kicks it. Once kicked, it keeps rolling until forces like friction and gravity slow it down and eventually stop its movement.</p>
+          <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; p:nth-of-type(2)"></p>
+          <div class="rounded-md overflow-hidden border border-emerald-500/20">
+            <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/b4613544-844b-43c1-9c09-ac4551d958da_1600w.png" alt="Soccer ball illustrating first law example" class="bg-black w-full h-36 object-contain scale-100" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; img:nth-of-type(1)" data-element-src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/b4613544-844b-43c1-9c09-ac4551d958da_1600w.png">
+          </div>
+        </div>
+
+        <!-- Second Law -->
+        <div class="feature-card rounded-lg pt-6 pr-6 pb-6 pl-6 backdrop-blur-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2)">
+  <h3 class="text-xl font-semibold text-emerald-300 mb-3">Newton’s Second Law</h3>
+  <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; p:nth-of-type(1)">Newton’s second law tells us how forces affect the motion of objects. It says that when a net force acts on an object, the object will accelerate. The acceleration depends on two things. It depends on the force applied, where a stronger force produces more acceleration as they are directly proportional. It also depends on the mass of the object, where a heavier mass results in less acceleration as they are inversely proportional. This relationship is expressed by the formula a = F/m or F=ma</p>
+  
+  <p class="leading-relaxed text-gray-200 mb-2" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; p:nth-of-type(2)">F is the net force measured in newtons (N). It is the vector sum of all
+  forces acting on the object. m is the objects mass. a is the objects acceleration.</p>
+  <p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; p:nth-of-type(3)">Example: Pushing an empty shopping cart makes it speed up more than a
+   full one. This is because the same force causes less acceleration when the mass is larger (F=ma)</p>
+  <div class="overflow-hidden border-emerald-500/20 border rounded-md" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1)">
+    
+  </div>
+</div>
+
+        <!-- Third Law -->
+        <div class="feature-card rounded-lg pt-6 pr-6 pb-6 pl-6 backdrop-blur-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3)">
+          <h3 class="text-xl font-semibold text-emerald-300 mb-3">Newton’s Third Law</h3>
+          <p class="text-gray-200 leading-relaxed mb-4">
+            The third law describes how forces work when two objects interact with each other. Whenever one object exerts a force on another, the second object exerts an equal force back in the opposite direction.
+          </p>
+          
+          <p class="leading-relaxed text-gray-200 mb-2" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; p:nth-of-type(2)">The forces always come as a pair, called an action-reaction pair. 
+</p><p class="leading-relaxed text-gray-200 mb-2" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; p:nth-of-type(3)">
+1. They are equal in size. 
+2. They point in opposite directions. 
+3. They act on two different objects.</p><p class="leading-relaxed text-gray-200 mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; p:nth-of-type(4)">Example: When you jump off a small boat, the boat moves backward. This is because when you push the boat one way, the boat pushes you equally in the opposite direction.</p>
+          <div class="rounded-md overflow-hidden border border-emerald-500/20">
+            <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/da72155b-522d-4235-b778-02cdddc4ab83_3840w.png" alt="Person rolling off boat illustrating action-reaction" class="bg-black/50 w-full h-45 object-cover scale-75" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; img:nth-of-type(1)" data-element-src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/da72155b-522d-4235-b778-02cdddc4ab83_3840w.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 border-t border-emerald-500/10"></div>
+    </div>
+  </section>
+
+  <!-- Free Body Diagrams -->
+  <section id="fbd" class="relative z-10 py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-3 mb-10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="square" class="lucide lucide-square w-5 h-5 text-emerald-400"><rect width="18" height="18" x="3" y="3" rx="2"></rect></svg>
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-emerald-400">Free Body Diagrams</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="feature-card p-6 rounded-lg backdrop-blur-sm">
+          <p class="text-gray-200 leading-relaxed mb-4">
+            A free body diagram is a simplified drawing that shows all the forces acting on a single object.
+          </p>
+          <p class="text-gray-200 leading-relaxed mb-2">1. Isolate the object you want to analyze by representing it as a particle</p>
+          <p class="text-gray-200 leading-relaxed mb-2">2. Identify all the forces acting on the object.</p>
+          <p class="leading-relaxed text-gray-200 mb-2" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(5) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; p:nth-of-type(4)">3. Draw vectors to represent each force. Start each tail from the particle and point it in the direction the force acts.</p>
+          <p class="leading-relaxed text-gray-200" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(5) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; p:nth-of-type(5)">4. Label each force clearly by using their standard symbols, such as F_N for normal force. The labels do not include numbers.</p>
+        </div>
+        <div class="feature-card p-6 rounded-lg backdrop-blur-sm">
+          <div class="text-sm text-emerald-300 font-medium mb-3">Example visual</div>
+          <div class="rounded-md overflow-hidden border border-emerald-500/20">
+            <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/438d9f08-4aef-45be-8852-9cae8249e2db_3840w.png" alt="Free-body diagram example from the internet" class="bg-black w-full h-64 object-contain" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(5) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; img:nth-of-type(1)" data-element-src="https://images.unsplash.com/photo-1635151227785-429f420c6b9d?w=1080&amp;q=80">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 border-t border-emerald-500/10"></div>
+    </div>
+  </section>
+
+  <!-- Practice Problems -->
+  <section class="z-10 pt-16 pr-6 pb-16 pl-6 relative" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(6)" id="practice">
+    <div class="max-w-6xl mr-auto ml-auto" data-element-locator="html &gt; body:nth-of-type(1) &gt; section:nth-of-type(6) &gt; div:nth-of-type(1)">
+      <div class="flex items-center gap-3 mb-10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="play-square" class="lucide lucide-play-square w-5 h-5 text-emerald-400"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"></path></svg>
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-emerald-400">Practice Problems</h2>
+      </div>
+
+      <!-- Problem 1 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div class="feature-card p-6 rounded-lg backdrop-blur-sm">
+          <h3 class="text-xl font-semibold text-emerald-300 mb-3">Problem 1:</h3>
+          <p class="text-gray-200 leading-relaxed mb-4">
+            A 5.0-kg block is pulled across a frictionless horizontal surface by a rope that makes a 30° angle above the horizontal. The tension in the rope is 40 N. There is also another string that pulls the block horizontally by 5 N.  
+          </p>
+          <p class="text-gray-200 leading-relaxed mb-2">(a) Draw a free-body diagram for the block.</p>
+          <p class="text-gray-200 leading-relaxed mb-2">(b) Determine the horizontal acceleration of the block.</p>
+          <p class="text-gray-200 leading-relaxed mb-2">(c) Which direction is the block moving in?</p>
+        </div>
+        <div class="feature-card p-4 rounded-lg backdrop-blur-sm flex items-center justify-center">
+          <div class="w-full">
+            <div class="text-sm text-emerald-300 font-medium mb-2 px-2">Video placeholder</div>
+            <div class="rounded-lg overflow-hidden border border-emerald-500/20">
+              <iframe src="video-link-placeholder" width="400" height="250" class="w-full h-[250px] bg-black"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Problem 2 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="feature-card p-6 rounded-lg backdrop-blur-sm">
+          <h3 class="text-xl font-semibold text-emerald-300 mb-3">Problem 2:</h3>
+          <p class="text-gray-200 leading-relaxed mb-4">
+            A skier with mass 70 kg is on a snow-covered slope inclined at 30°. A rope pulls the skier 600 N at an angle of 15° above the slope. The coefficient of kinetic friction between skis and snow is μk=0.08.  
+          </p>
+          <p class="text-gray-200 leading-relaxed mb-2">(a) Draw and label a free-body diagram for the forces acting on the skier.</p>
+          <p class="text-gray-200 leading-relaxed mb-2">(b) Find the skier’s acceleration along the slope while the rope is pulling.</p>
+        </div>
+        <div class="feature-card p-4 rounded-lg backdrop-blur-sm flex items-center justify-center">
+          <div class="w-full">
+            <div class="text-sm text-emerald-300 font-medium mb-2 px-2">Video placeholder</div>
+            <div class="rounded-lg overflow-hidden border border-emerald-500/20">
+              <iframe src="video-link-placeholder" width="400" height="250" class="w-full h-[250px] bg-black"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 border-t border-emerald-500/10"></div>
+    </div>
+  </section>
+
+  <script>
+    // Lucide icons
+    lucide.createIcons({ attrs: { 'stroke-width': 1.5 } });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // CTA scroll to Types of Forces
+    const exploreBtn = document.getElementById('exploreBtn');
+    const featuresSection = document.getElementById('features');
+    if (exploreBtn && featuresSection) {
+      exploreBtn.addEventListener('click', () => {
+        featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  </script>
+
+</body></html>
